@@ -1,12 +1,24 @@
 import HTML
-import json
+
 
 def create(i):
-    with open("bots.json", "r", encoding="utf8") as file:
-        bots = json.load(file)
+    """
+    vytvoří postupně i nových účtu na instagramu 
+    uloží emailové adresy nových účtu v email.txt souboru
+    """
+    emails = []
+    with open("emails.txt", "r", encoding="utf8") as file: #otevře soubor s emaily
+        emails = file.readlines() #uloží emaily už existujících účtu do listu
         
     for _ in range(i):
-        bots["bots"].append(HTML.makeBot())
+        print(f"getting {i + 1}th bot")
+        try: #zkusí vytvořit nový účet
+            emails.append(HTML.makeBot()) #uloží ho na konec listu
+        except: #při chybě přeruší cyklus a další účty už nevytváří
+            print(f"some problem occured with creating {i + 1}th bot")
+            break
 
-    with open("bots.json", "w", encoding="utf8") as file:
-        file.write(json.dumps(bots))
+    with open("emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
+        file.writelines(emails) #nahraje do něj aktualizovaný list s emaily všech vytvořených účtů
+
+create(1) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
