@@ -1,4 +1,6 @@
-import HTML
+import bezProxy
+import sProxy
+import Get_Proxy
 
 
 def create(i):
@@ -10,10 +12,12 @@ def create(i):
     with open("emails.txt", "r", encoding="utf8") as file: #otevře soubor s emaily
         emails = file.readlines() #uloží emaily už existujících účtu do listu
         
-    for _ in range(i):
-        print(f"getting {i + 1}th bot")
+    proxy_list = Get_Proxy.get_socks_proxys()
+    for n in range(i):
+        print(f"getting {n + 1}th bot")
         try: #zkusí vytvořit nový účet
-            emails.append(HTML.makeBot()) #uloží ho na konec listu
+            proxy_ip = proxy_list[n]
+            emails.append(bezProxy.makeBot()) #uloží ho na konec listu
         except: #při chybě přeruší cyklus a další účty už nevytváří
             print(f"some problem occured with creating {i + 1}th bot")
             break
