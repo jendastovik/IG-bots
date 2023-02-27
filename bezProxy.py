@@ -102,7 +102,7 @@ def writeConfirmationCode(driver, key):
 
     loginButton = driver.find_element(By.XPATH, "//button[@type='submit']") #najde tlačítko potvrzení
     loginButton.click() #potvrdí
-    driver.implicitly_wait(30) #počká zpracování servrem
+    driver.implicitly_wait(2) #počká zpracování servrem
 
 def makeBot():
     """
