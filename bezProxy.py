@@ -4,6 +4,9 @@ from selenium.webdriver.common.by import By
 import time
 import pyautogui
 import re
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.keys import Keys
+
 
 
 def getMailID():
@@ -33,6 +36,8 @@ def DoIG(full_name, line, user_name, pass_word):
     projde celým procesem vytváření nového účtu na instagramu až do ověření emailové adresy
     """
     driver = webdriver.Chrome() 
+    driver.set_window_size(1024, 600)
+    driver.maximize_window()
     driver.get("https://www.instagram.com/accounts/emailsignup/") #otevře instagram
     driver.implicitly_wait(10) #počká na jeho načtení
 
@@ -55,24 +60,26 @@ def DoIG(full_name, line, user_name, pass_word):
     print("first part of putting in info done")
 
     driver.implicitly_wait(10) #čeká na načtení druhé části vytváření účtu
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.CONTROL + Keys.HOME)
     time.sleep(2) #počká na odkliknutí
-    pyautogui.click(932, 567-70)
+    pyautogui.click(1088, 519)
     time.sleep(2) #počká na odkliknutí
-    pyautogui.click(925, 990-70)
+    pyautogui.click(1052, 1009)
     time.sleep(2) #počká na odkliknutí
-    pyautogui.click(753, 738-70) #změní rok narození a odklikne
+    pyautogui.click(937, 676) #změní rok narození a odklikne
     #provedeno pomocí souřadnic na obrazovce, protože byl problém kolonky nalézt ve zdrojovém kódu
     print("giving some time for email to arrive")
 
     return driver
    
-def getKeyfromInbox(driver):
+def getKeyfromInbox(driver: webdriver.Chrome):
     """
     najde v inboxu 10 minutové emailové adresy email od instagramu a extrahuje potvrzovací heslo
     """
     print("getting password")
     for i in range(100): #dá 100x obnovovací čas k tomu a by přišel potvrzovací email
         time.sleep(3) #obnovovací čas
+        driver.refresh()
         out = driver.page_source #uloží zdrojový kód stránky do proměnné
         soup = BeautifulSoup(out, "lxml")
         result = soup.find_all("tbody", {"id":"schranka"}) #najde inbox s emaily pomocí knihovny bs4

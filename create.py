@@ -17,12 +17,12 @@ def create(i):
         print(f"getting {n + 1}th bot")
         try: #zkusí vytvořit nový účet
             proxy_ip = proxy_list[n]
-            emails.append(bezProxy.makeBot()) #uloží ho na konec listu
+            emails.append(sProxy.makeBot(proxy_ip)) #uloží ho na konec listu
         except: #při chybě přeruší cyklus a další účty už nevytváří
-            print(f"some problem occured with creating {i + 1}th bot")
+            print(f"some problem occured with creating {n + 1}th bot")
             break
 
     with open("emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
-        file.writelines(emails) #nahraje do něj aktualizovaný list s emaily všech vytvořených účtů
+        file.writelines('\n'.join(emails)) #nahraje do něj aktualizovaný list s emaily všech vytvořených účtů
 
-create(1) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
+create(2) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
