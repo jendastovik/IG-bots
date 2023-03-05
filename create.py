@@ -13,11 +13,11 @@ def create(i):
         emails = file.readlines() #uloží emaily už existujících účtu do listu
     emails = [e[:-1] for e in emails[:-1]]
     emails.append(emails[-1])
-    proxy_list = Get_Proxy.get_socks_proxys()
+    #proxy_list = Get_Proxy.get_socks_proxys()
     for n in range(i):
         print(f"getting {n + 1}th bot")
         try: #zkusí vytvořit nový účet
-            proxy_ip = proxy_list[n]
+            #proxy_ip = proxy_list[n]
             emails.append(bezProxy.makeBot()) #uloží ho na konec listu
         except: #při chybě přeruší cyklus a další účty už nevytváří
             print(f"some problem occured with creating {n + 1}th bot")

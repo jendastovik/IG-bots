@@ -6,6 +6,8 @@ import pyautogui
 import re
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.keys import Keys
+import Get_Proxy
+
 
 
 def getMailID():
@@ -13,7 +15,7 @@ def getMailID():
     vytvoří emailovou adresu s přístupem 10 minut do její schránky
     provedeno pomocí webu https://www.minuteinbox.com/
     """
-    driver = webdriver.Chrome() 
+    driver = webdriver.Chrome()
     driver.get("https://www.minuteinbox.com/") #otevře webovou stránku
     driver.implicitly_wait(10) #počká na její načtení
     output = driver.page_source #uloží zdrojový kód
@@ -35,7 +37,7 @@ def DoIG(full_name, line, user_name, pass_word, PROXY):
     projde celým procesem vytváření nového účtu na instagramu až do ověření emailové adresy
     """
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--proxy-server=%s' % PROXY)
+    chrome_options.add_argument('--proxy-server=socks5://' + PROXY)
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.set_window_size(1024, 600)
     driver.maximize_window()
@@ -43,7 +45,7 @@ def DoIG(full_name, line, user_name, pass_word, PROXY):
     driver.implicitly_wait(10) #počká na jeho načtení
 
     pyautogui.click(756, 793) #odklikává cookies oznámení
-    time.sleep(2) #počká na odkliknutí
+    time.sleep(3) #počká na odkliknutí
 
     email = driver.find_element(By.CSS_SELECTOR, "input[name='emailOrPhone']")
     fullname = driver.find_element(By.CSS_SELECTOR, "input[name='fullName']")
@@ -61,7 +63,8 @@ def DoIG(full_name, line, user_name, pass_word, PROXY):
     print("first part of putting in info done")
 
     driver.implicitly_wait(10) #čeká na načtení druhé části vytváření účtu
-    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.CONTROL + Keys.HOME) #vyjede na vrch okna
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.CONTROL + Keys.HOME) #vyjede na vrch stránky
+
     time.sleep(1) #počká na odkliknutí
     pyautogui.click(1088, 519)
     time.sleep(1) #počká na odkliknutí
@@ -69,6 +72,7 @@ def DoIG(full_name, line, user_name, pass_word, PROXY):
     time.sleep(1) #počká na odkliknutí
     pyautogui.click(937, 676) #změní rok narození a odklikne
     #provedeno pomocí souřadnic na obrazovce, protože byl problém kolonky nalézt ve zdrojovém kódu
+
     print("giving some time for email to arrive")
 
     return driver
@@ -103,7 +107,7 @@ def writeConfirmationCode(driver, key):
 
     loginButton = driver.find_element(By.XPATH, "//button[@type='submit']") #najde tlačítko potvrzení
     loginButton.click() #potvrdí
-    driver.implicitly_wait(30) #počká zpracování servrem
+    driver.implicitly_wait(2) #počká zpracování servrem
 
 def makeBot(PROXY):
     """
@@ -119,7 +123,7 @@ def makeBot(PROXY):
     password = "xxxxYYYYY"
     #univerzální heslo
 
-    ig_driver = DoIG(full_name, email, username, password, PROXY=PROXY)
+    ig_driver = DoIG(full_name, email, username, password)
     print("wrote all info and waiting for confirmation kode")
     #projde celým procesem vytváření nového účtu na instagramu až do ověření emailové adresy
     
@@ -134,3 +138,6 @@ def makeBot(PROXY):
     ig_driver.quit() #opustí stránku
 
     return email #vrátí email nově vytvořeného bota
+
+proxys = Get_Proxy.get_working_proxys(1)
+print(makeBot(proxys[0]))

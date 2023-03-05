@@ -6,6 +6,7 @@ import pyautogui
 import re
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
 
 
 
@@ -42,7 +43,7 @@ def DoIG(full_name, line, user_name, pass_word):
     driver.implicitly_wait(10) #počká na jeho načtení
 
     pyautogui.click(756, 793) #odklikává cookies oznámení
-    time.sleep(2) #počká na odkliknutí
+    time.sleep(3) #počká na odkliknutí
 
     email = driver.find_element(By.CSS_SELECTOR, "input[name='emailOrPhone']")
     fullname = driver.find_element(By.CSS_SELECTOR, "input[name='fullName']")
@@ -60,14 +61,25 @@ def DoIG(full_name, line, user_name, pass_word):
     print("first part of putting in info done")
 
     driver.implicitly_wait(10) #čeká na načtení druhé části vytváření účtu
-    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.CONTROL + Keys.HOME)
-    time.sleep(2) #počká na odkliknutí
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.CONTROL + Keys.HOME) #vyjede na vrch stránky
+
+    #year = driver.find_element(By.CSS_SELECTOR, "select[title='Year:']")
+    #select = Select(year)
+    #select.select_by_value("2000")
+    
+    
+    time.sleep(1) #počká na odkliknutí
     pyautogui.click(1088, 519)
-    time.sleep(2) #počká na odkliknutí
+    time.sleep(1) #počká na odkliknutí
     pyautogui.click(1052, 1009)
-    time.sleep(2) #počká na odkliknutí
+    time.sleep(1) #počká na odkliknutí
     pyautogui.click(937, 676) #změní rok narození a odklikne
     #provedeno pomocí souřadnic na obrazovce, protože byl problém kolonky nalézt ve zdrojovém kódu
+
+    #nextButton = driver.find_element(By.LINK_TEXT, "Další")
+    #nextButton.click()
+    #driver.implicitly_wait(2)
+
     print("giving some time for email to arrive")
 
     return driver
