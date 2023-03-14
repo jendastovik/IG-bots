@@ -145,3 +145,5 @@ def makeBot():
     ig_driver.quit() #opustí stránku
 
     return email #vrátí email nově vytvořeného bota
+
+makeBot()
