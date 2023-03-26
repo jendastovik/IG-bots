@@ -19,7 +19,7 @@ moje_IP_adresy = []
 list do kterého se mi budou zapisovat moje použité ip adresy
 """
 a=0 
-str_pocet_prihlaseni=input("Kolik pokusů?")
+str_pocet_prihlaseni=input("Kolik pokusů? ")
 pocet_prihlaseni = int(str_pocet_prihlaseni)
 """
 Kolikrát se má program zkusit přihlásit
@@ -49,7 +49,9 @@ while a<pocet_prihlaseni:
 
     time.sleep(5)
 
-    browser = webdriver.Chrome()
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    browser = webdriver.Chrome(chrome_options=chrome_options)
     url = "https://www.google.com/"
     browser.get(url)
 

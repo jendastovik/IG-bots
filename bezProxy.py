@@ -9,13 +9,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 
 
-
 def getMailID():
     """
     vytvoří emailovou adresu s přístupem 10 minut do její schránky
     provedeno pomocí webu https://www.minuteinbox.com/
     """
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(chrome_options=options)
     driver.get("https://www.minuteinbox.com/") #otevře webovou stránku
     driver.implicitly_wait(10) #počká na její načtení
     output = driver.page_source #uloží zdrojový kód
@@ -36,14 +37,16 @@ def DoIG(full_name, line, user_name, pass_word):
     """
     projde celým procesem vytváření nového účtu na instagramu až do ověření emailové adresy
     """
-    driver = webdriver.Chrome() 
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome(chrome_options=options)
     driver.set_window_size(1024, 600)
     driver.maximize_window()
     driver.get("https://www.instagram.com/accounts/emailsignup/") #otevře instagram
     driver.implicitly_wait(10) #počká na jeho načtení
 
-    pyautogui.click(756, 793) #odklikává cookies oznámení
-    time.sleep(3) #počká na odkliknutí
+    pyautogui.click(965, 844) #odklikává cookies oznámení
+    time.sleep(5) #počká na odkliknutí
 
     email = driver.find_element(By.CSS_SELECTOR, "input[name='emailOrPhone']")
     fullname = driver.find_element(By.CSS_SELECTOR, "input[name='fullName']")
@@ -69,11 +72,11 @@ def DoIG(full_name, line, user_name, pass_word):
     
     
     time.sleep(1) #počká na odkliknutí
-    pyautogui.click(1088, 519)
+    pyautogui.click(1049, 446)
     time.sleep(1) #počká na odkliknutí
-    pyautogui.click(1052, 1009)
+    pyautogui.click(1025, 763)
     time.sleep(1) #počká na odkliknutí
-    pyautogui.click(937, 676) #změní rok narození a odklikne
+    pyautogui.click(949, 572) #změní rok narození a odklikne
     #provedeno pomocí souřadnic na obrazovce, protože byl problém kolonky nalézt ve zdrojovém kódu
 
     #nextButton = driver.find_element(By.LINK_TEXT, "Další")
