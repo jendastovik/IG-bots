@@ -10,7 +10,7 @@ def change_vpn():
 
     subprocess.call(disconnect, shell=True)
 
-    connect = "protonvpn-cli c -f"
+    connect = "protonvpn-cli c -r"
 
     subprocess.call(connect, shell=True)
 
