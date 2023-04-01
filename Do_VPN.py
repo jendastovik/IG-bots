@@ -1,4 +1,5 @@
 import subprocess
+import time
 
 def sign_in():
     mes = 'protonvpn-cli login FilykCZ'
@@ -22,3 +23,10 @@ def disconnect():
     disconnect ='protonvpn-cli d'
 
     subprocess.call(disconnect, shell=True)
+
+def testVPN():
+    connect()
+    time.sleep(10)
+    change_vpn()
+    time.sleep(10)
+    disconnect()
