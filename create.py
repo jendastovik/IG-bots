@@ -8,7 +8,7 @@ def create(i):
     uloží emailové adresy nových účtu v email.txt souboru
     """
     emailsNotEdited = []
-    with open("/root/Desktop/code/emails.txt", "r", encoding="utf8") as file: #otevře soubor s emaily
+    with open("/root/Desktop/kali_bots/emails.txt", "r", encoding="utf8") as file: #otevře soubor s emaily
         emailsNotEdited = file.readlines() #uloží emaily už existujících účtu do listu
     emails = [e[:-1] for e in emailsNotEdited[:-1]]
     emails.append(emailsNotEdited[-1])
@@ -26,7 +26,7 @@ def create(i):
         else: ch += 1
     Do_VPN.disconnect() #odpoji VPN
 
-    with open("/root/Desktop/code/emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
+    with open("/root/Desktop/kali_bots/emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
         file.write('\n'.join(emails)) #nahraje do něj aktualizovaný list s emaily všech vytvořených účtů
 
 create(1) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
