@@ -45,8 +45,8 @@ def DoIG(full_name, line, user_name, pass_word):
     driver.get("https://www.instagram.com/accounts/emailsignup/") #otevře instagram
     driver.implicitly_wait(10) #počká na jeho načtení
 
-    pyautogui.click(965, 844) #odklikává cookies oznámení
-    time.sleep(5) #počká na odkliknutí
+    #pyautogui.click(965, 844) #odklikává cookies oznámení
+    #time.sleep(5) #počká na odkliknutí
 
     email = driver.find_element(By.CSS_SELECTOR, "input[name='emailOrPhone']")
     fullname = driver.find_element(By.CSS_SELECTOR, "input[name='fullName']")

@@ -7,12 +7,13 @@ def create(i):
     vytvoří postupně i nových účtu na instagramu 
     uloží emailové adresy nových účtu v email.txt souboru
     """
-    emails = []
+    emailsNotEdited = []
     with open("/root/Desktop/code/emails.txt", "r", encoding="utf8") as file: #otevře soubor s emaily
-        emails = file.readlines() #uloží emaily už existujících účtu do listu
-    emails = [e[:-1] for e in emails[:-1]]
-    emails.append(emails[-1])
+        emailsNotEdited = file.readlines() #uloží emaily už existujících účtu do listu
+    emails = [e[:-1] for e in emailsNotEdited[:-1]]
+    emails.append(emailsNotEdited[-1])
     Do_VPN.connect() #pripoji na VPN server
+    ch = 0
     for n in range(i):
         print(f"getting {n + 1}th bot")
         try: #zkusí vytvořit nový účet
@@ -20,10 +21,12 @@ def create(i):
         except: #při chybě přeruší cyklus a další účty už nevytváří
             print(f"some problem occured with creating {n + 1}th bot")
             break
-        Do_VPN.change_vpn() #zmeni VPN
+        if ch == 5:
+            Do_VPN.change_vpn() #zmeni VPN
+        else: ch += 1
     Do_VPN.disconnect() #odpoji VPN
 
-    with open("emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
+    with open("/root/Desktop/code/emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
         file.write('\n'.join(emails)) #nahraje do něj aktualizovaný list s emaily všech vytvořených účtů
 
-create(1) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
+create(3) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
