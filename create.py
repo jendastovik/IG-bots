@@ -29,4 +29,4 @@ def create(i):
     with open("/root/Desktop/code/emails.txt", "w", encoding="utf8") as file: #otevře znovu soubor
         file.write('\n'.join(emails)) #nahraje do něj aktualizovaný list s emaily všech vytvořených účtů
 
-create(3) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit
+create(1) #spustí funkci s parametrem i, tedy kolik nových účtů se chceme pokusit vytvořit

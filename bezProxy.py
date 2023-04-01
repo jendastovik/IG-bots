@@ -7,6 +7,7 @@ import re
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+import random
 
 
 def getMailID():
@@ -69,7 +70,7 @@ def DoIG(full_name, line, user_name, pass_word):
     #year = driver.find_element(By.CSS_SELECTOR, "select[title='Year:']")
     #select = Select(year)
     #select.select_by_value("2000")
-    
+    driver.implicitly_wait(10)
     
     time.sleep(1) #počká na odkliknutí
     pyautogui.click(1049, 446)
@@ -117,7 +118,8 @@ def writeConfirmationCode(driver, key):
 
     loginButton = driver.find_element(By.XPATH, "//button[@type='submit']") #najde tlačítko potvrzení
     loginButton.click() #potvrdí
-    driver.implicitly_wait(2) #počká zpracování servrem
+    time.sleep(30)
+    driver.implicitly_wait(40) #počká zpracování servrem
 
 def makeBot():
     """
@@ -128,7 +130,7 @@ def makeBot():
 
     full_name = email.split(".")[0] + " " + email.split(".")[1].split("@")[0]
     #extrahuje z emailové adresy celé jméno
-    username = full_name.replace(" ", "") + "ahoj"
+    username = full_name.replace(" ", "") + str(random.randint(1970, 2008))
     #extrahuje z emailové adresy uživatelské jméno
     password = "xxxxYYYYY"
     #univerzální heslo
