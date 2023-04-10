@@ -2,10 +2,12 @@ import subprocess
 import time
 
 def sign_in():
-    mes = 'protonvpn-cli login FilykCZ'
+    """Sign in to ProtonVPN"""
+    mes = 'protonvpn-cli login yourUsername' #
     subprocess.call(mes, shell=True)
 
 def change_vpn():
+    """Change VPN server"""
     disconnect ='protonvpn-cli d'
 
     subprocess.call(disconnect, shell=True)
@@ -15,11 +17,13 @@ def change_vpn():
     subprocess.call(connect, shell=True)
 
 def connect():
+    """Connect to ProtonVPN"""
     connect = "protonvpn-cli c -f"
 
     subprocess.call(connect, shell=True)
 
 def disconnect():
+    """Disconnect from ProtonVPN"""
     disconnect ='protonvpn-cli d'
 
     subprocess.call(disconnect, shell=True)
